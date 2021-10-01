@@ -14,7 +14,6 @@ function getPizzaOrder() {
     cost: basePrice
   }
 
-  // console.log(pizza.cost)
 
   var crust = prompt(
     `Please enter the type of crust (${formatPrice(thickCrustUpcharge)} upcharge for Thick crust)`
@@ -39,13 +38,16 @@ function getPizzaOrder() {
   // if the user has added toppings, add toppingsFee multiplied by
   // the number of toppings added to pizza.cost
   // YOUR CODE HERE
-  pizza.toppings = toppings.split(",")
-
-  if (pizza.toppings.length > 0)
-    pizza.cost = pizza.cost + (pizza.toppings.length * toppingsFee)
-
-  else (pizza.toppings.length == 0)
-    pizza.cost = pizza.cost
+  if(typeof toppings === 'string' && toppings){
+    pizza.toppings = toppings.trim().toLowerCase().split(",")
+    var numOfToppings = pizza.toppings.length
+    if(numOfToppings > 0) {
+      pizza.cost += numOfToppings * toppingsFee
+    }
+  } 
+  
+  else
+    pizza.toppings = []
     
   
 
@@ -57,7 +59,6 @@ function getPizzaOrder() {
   pizza.extraCheese = extraCheese
   if (pizza.extraCheese === true) 
     pizza.cost += extraCheeseUpcharge
-  
 
 
   var isDelivery = confirm("Is your order for Delivery?")
@@ -73,8 +74,10 @@ function getPizzaOrder() {
   else 
     pizza.saleType = "take-out"
 
-  return pizza
+    return pizza
+  
 }
+
 
 // This function is attached to the Order Now Button
 // This function is COMPLETE. No work to do here
